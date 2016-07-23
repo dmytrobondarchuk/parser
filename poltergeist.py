@@ -24,43 +24,31 @@ class Article():
             self.driver = webdriver.Chrome(executable_path="/opt/chromedriver")
         self.driver.get(self.URL)
         
-        try:
-            self.finder_field = WebDriverWait (self.driver, 10).until(
-                ec.visibility_of_element_located((By.NAME, 'text')))
-        except Exception as e:
-            print ('self.finder_field failed') 
-        
-        try:
-            self.finder_field.send_keys(self.arg)
-        except Exception as e:
-            print ('self.finder_field.send_keys failed')
 
-        try:
-            self.finder_button = WebDriverWait (self.driver, 10).until(
-                ec.visibility_of_element_located((By.NAME, 'search-button')))
-        except Exception as e:
-            print ('self.finder_button failed')
-        try:
-            self.finder_button.click()
-        except Exception as e:
-            print ('self.finder_button.click failed')
+        self.finder_field = WebDriverWait (self.driver, 10).until(
+            ec.visibility_of_element_located((By.NAME, 'text')))
+    
+
+        self.finder_field.send_keys(self.arg)
+
+        self.finder_button = WebDriverWait (self.driver, 10).until(
+            ec.visibility_of_element_located((By.NAME, 'search-button')))
 
 
-        try:
-            self.found_list_of_items = WebDriverWait (self.driver, 10).until(
-                ec.visibility_of_element_located((By.CLASS_NAME, 'g-i-list-title')))
-        except Exception as e:
-            print ('found_list_of_items failed')
+        self.finder_button.click()
 
-        try:
-            self.first_item = self.found_list_of_items.find_element_by_tag_name('a')
-        except Exception as e:
-            print ('self.found_list_of_items.find_element_by_tag failed')
+        self.found_list_of_items = WebDriverWait (self.driver, 10).until(
+            ec.visibility_of_element_located((By.CLASS_NAME, 'g-i-list-title')))
 
-        try:
-            self.first_item.click()
-        except Exception as e:
-            print ('self.first_item.click() failed')
+        self.first_item = self.found_list_of_items.find_element_by_tag_name('a')
+
+        self.first_item.click()
+
+        self.characteristics = WebDriverWait (self.driver, 10).until(
+            ec.visibility_of_element_located((By.CLASS_NAME, 'detail-description'))).text
+
+        print (self.characteristics)
+
 
 
 if __name__ == '__main__':
