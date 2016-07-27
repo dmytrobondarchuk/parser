@@ -19,7 +19,8 @@ class Article():
         self.URL = 'http://rozetka.com.ua/'
         #self.driver = webdriver.Chrome(executable_path="C:\seleniumchromwdriver\chromedriver.exe")
         if os.name == 'nt':
-            self.driver = webdriver.Chrome(executable_path="C:\seleniumchromwdriver\chromedriver.exe")
+            self.driver = webdriver.Firefox()
+            #self.driver = webdriver.Chrome(executable_path="C:\seleniumchromwdriver\chromedriver.exe")
         else:
             self.driver = webdriver.Chrome(executable_path="/opt/chromedriver")
         self.driver.get(self.URL)
@@ -33,7 +34,6 @@ class Article():
 
         self.finder_button = WebDriverWait (self.driver, 10).until(
             ec.visibility_of_element_located((By.NAME, 'search-button')))
-
 
         self.finder_button.click()
 
